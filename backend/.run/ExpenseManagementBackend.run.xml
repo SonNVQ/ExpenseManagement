@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ExpenseManagementBackend" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="ExpenseManagement" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="lab.ia.ExpenseManagement.ExpenseManagementApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
