@@ -1,4 +1,4 @@
-package lab.ia.ExpenseManagement.Models;
+package lab.ia.ExpenseManagement.Models.Enums;
 
 public enum ERole {
     ROLE_USER,
