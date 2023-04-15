@@ -1,6 +1,7 @@
 package lab.ia.ExpenseManagement.Models;
 
 import jakarta.persistence.*;
+import lab.ia.ExpenseManagement.Models.Enums.ERole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

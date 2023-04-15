@@ -1,7 +1,7 @@
 package lab.ia.ExpenseManagement.Controllers;
 
 import jakarta.validation.Valid;
-import lab.ia.ExpenseManagement.Models.ERole;
+import lab.ia.ExpenseManagement.Models.Enums.ERole;
 import lab.ia.ExpenseManagement.Models.Role;
 import lab.ia.ExpenseManagement.Models.User;
 import lab.ia.ExpenseManagement.Payloads.Request.LoginRequest;
