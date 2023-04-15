@@ -35,7 +35,7 @@ public class Record {
     @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm:ss")
     private Date date;
 
-    @ManyToMany(mappedBy = "persons")
+    @ManyToMany(mappedBy = "records")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private List<Category> categories;
