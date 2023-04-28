@@ -1,4 +1,4 @@
-package lab.ia.ExpenseManagement.Services;
+package lab.ia.ExpenseManagement.Services.Impl;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lab.ia.ExpenseManagement.Models.User;
