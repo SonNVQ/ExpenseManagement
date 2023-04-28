@@ -2,7 +2,7 @@ package lab.ia.ExpenseManagement.Security;
 
 import lab.ia.ExpenseManagement.Security.JWT.AuthEntryPointJwt;
 import lab.ia.ExpenseManagement.Security.JWT.AuthTokenFilter;
-import lab.ia.ExpenseManagement.Services.UserDetailsServiceImpl;
+import lab.ia.ExpenseManagement.Services.Impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

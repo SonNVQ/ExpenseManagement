@@ -1,4 +1,4 @@
-package lab.ia.ExpenseManagement.Services;
+package lab.ia.ExpenseManagement.Services.Impl;
 
 import lab.ia.ExpenseManagement.Models.User;
 import lab.ia.ExpenseManagement.Repositories.UserRepository;
