@@ -15,6 +15,10 @@ public class RegisterRequest {
     private String username;
 
     @NotBlank
+    @Size(max = 255)
+    private String fullname;
+
+    @NotBlank
     @Size(max = 60)
     private String email;
 
