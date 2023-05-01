@@ -9,6 +9,7 @@ import lab.ia.ExpenseManagement.Payloads.Response.JwtResponse;
 import lab.ia.ExpenseManagement.Repositories.RoleRepository;
 import lab.ia.ExpenseManagement.Repositories.UserRepository;
 import lab.ia.ExpenseManagement.Security.JWT.JwtUtils;
+import lab.ia.ExpenseManagement.Security.UserPrincipal;
 import lab.ia.ExpenseManagement.Services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -48,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
             throw new BadCredentialsException("Bad credentials");
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwtToken = jwtUtils.generateJwtToken(authentication);
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority()).collect(Collectors.toList());
         return new JwtResponse(
                 jwtToken,
@@ -69,7 +70,7 @@ public class AuthServiceImpl implements AuthService {
             throw new Exception("Email is already in use!");
         }
 
-        User user = new User(registerRequest.getUsername(), registerRequest.getEmail(), passwordEncoder.encode(registerRequest.getPassword()));
+        User user = new User(registerRequest.getUsername(), registerRequest.getFullName(),registerRequest.getEmail(), passwordEncoder.encode(registerRequest.getPassword()));
         Set<String> requestRoles = registerRequest.getRoles();
         Set<Role> roles = new HashSet<>();
 

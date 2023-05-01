@@ -2,7 +2,7 @@ package lab.ia.ExpenseManagement.Security.JWT;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
-import lab.ia.ExpenseManagement.Services.Impl.UserDetailsImpl;
+import lab.ia.ExpenseManagement.Security.UserPrincipal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +27,7 @@ public class JwtUtils {
     }
 
     public String generateJwtToken(Authentication authentication) {
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
                 .setIssuedAt(new Date())

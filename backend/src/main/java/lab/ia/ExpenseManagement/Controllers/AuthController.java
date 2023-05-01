@@ -5,7 +5,7 @@ import lab.ia.ExpenseManagement.Payloads.Request.LoginRequest;
 import lab.ia.ExpenseManagement.Payloads.Request.RegisterRequest;
 import lab.ia.ExpenseManagement.Payloads.Response.JwtResponse;
 import lab.ia.ExpenseManagement.Payloads.Response.MessageResponse;
-import lab.ia.ExpenseManagement.Services.Impl.AuthServiceImpl;
+import lab.ia.ExpenseManagement.Services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/auth")
 public class AuthController {
     @Autowired
-    AuthServiceImpl authService;
+    AuthService authService;
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -26,6 +26,8 @@ public class AuthController {
         } catch (BadCredentialsException exception) {
             return ResponseEntity.badRequest().body(new MessageResponse(exception.getMessage()));
         }
+        jwtResponse = authService.login(loginRequest);
+
         return ResponseEntity.ok(jwtResponse);
     }
 
