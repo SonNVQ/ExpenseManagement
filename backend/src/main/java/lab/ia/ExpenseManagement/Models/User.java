@@ -1,5 +1,6 @@
 package lab.ia.ExpenseManagement.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -33,6 +34,7 @@ public class User {
     @Email
     private String email;
 
+    @JsonIgnore
     @Column(length = 120)
     @NotBlank
     private String password;
@@ -43,13 +45,15 @@ public class User {
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @JsonIgnore
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Category> categories = new ArrayList<>();
 
-    public User(String username, String email, String password) {
+    public User(String username, String fullName, String email, String password) {
         this.username = username;
+        this.fullName = fullName;
         this.email = email;
         this.password = password;
     }
