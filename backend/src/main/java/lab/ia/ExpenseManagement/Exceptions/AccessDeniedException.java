@@ -1,16 +1,15 @@
 package lab.ia.ExpenseManagement.Exceptions;
 
+
 import lab.ia.ExpenseManagement.Payloads.Response.ApiResponse;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.BAD_REQUEST)
-@Getter
-@Setter
+@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
+@Data
 @AllArgsConstructor
-public class BadRequestException extends RuntimeException {
-    private ApiResponse apiResponse;
+public class AccessDeniedException extends RuntimeException {
+	private ApiResponse apiResponse;
 }
