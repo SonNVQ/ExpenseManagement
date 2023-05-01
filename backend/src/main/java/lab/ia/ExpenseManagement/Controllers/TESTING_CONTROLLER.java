@@ -26,5 +26,4 @@ public class TESTING_CONTROLLER {
     public String adminAccess() {
         return "Only admin can see this!";
     }
-
 }

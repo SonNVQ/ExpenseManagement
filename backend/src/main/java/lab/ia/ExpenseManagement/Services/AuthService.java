@@ -8,5 +8,5 @@ import org.springframework.security.authentication.BadCredentialsException;
 public interface AuthService {
     JwtResponse login(LoginRequest loginRequest) throws BadCredentialsException;
 
-    public void register(RegisterRequest registerRequest) throws Exception;
+    void register(RegisterRequest registerRequest) throws Exception;
 }
