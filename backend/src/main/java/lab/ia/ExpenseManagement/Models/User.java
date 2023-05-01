@@ -26,7 +26,7 @@ public class User {
 
     @Column(length = 255)
     @NotBlank
-    private String fullname;
+    private String fullName;
 
     @Column(length = 50, unique = true)
     @NotBlank
