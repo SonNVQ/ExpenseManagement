@@ -1,4 +1,4 @@
-package lab.ia.ExpenseManagement.Services.Impl;
+package lab.ia.ExpenseManagement.Security;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lab.ia.ExpenseManagement.Models.User;
@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Getter
-public class UserDetailsImpl implements UserDetails {
+public class UserPrincipal implements UserDetails {
     private final Long id;
 
     private final String username;
@@ -25,7 +25,7 @@ public class UserDetailsImpl implements UserDetails {
 
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(Long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -33,11 +33,11 @@ public class UserDetailsImpl implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserDetailsImpl build(User user) {
+    public static UserPrincipal build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
-        return new UserDetailsImpl(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), authorities);
+        return new UserPrincipal(user.getId(), user.getUsername(), user.getEmail(), user.getPassword(), authorities);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class UserDetailsImpl implements UserDetails {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserDetailsImpl that = (UserDetailsImpl) o;
+        UserPrincipal that = (UserPrincipal) o;
         return Objects.equals(id, that.id);
     }
 }
