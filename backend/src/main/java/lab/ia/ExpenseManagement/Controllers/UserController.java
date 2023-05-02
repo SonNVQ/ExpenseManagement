@@ -33,13 +33,6 @@ public class UserController {
         return ResponseEntity.ok(userService.checkEmailAvailable(email));
     }
 
-    ////TODO: Fix this
-    @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> addUser(@Valid @RequestBody User user) {
-        return ResponseEntity.ok(userService.addUser(user));
-    }
-
     @DeleteMapping("/{username}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> deleteUser(@PathVariable("username") String username,
