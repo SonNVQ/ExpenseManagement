@@ -51,6 +51,12 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Category> categories = new ArrayList<>();
 
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private List<Record> records = new ArrayList<>();
+
     public User(String username, String fullName, String email, String password) {
         this.username = username;
         this.fullName = fullName;

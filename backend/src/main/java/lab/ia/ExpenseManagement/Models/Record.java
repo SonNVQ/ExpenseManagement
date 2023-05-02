@@ -19,6 +19,12 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Column
     private String name;
 
@@ -40,7 +46,8 @@ public class Record {
     @ToString.Exclude
     private List<Category> categories;
 
-    public Record(String name, String note, ERecordType type, double amount, Date date, List<Category> categories) {
+    public Record(User user, String name, String note, ERecordType type, double amount, Date date, List<Category> categories) {
+        this.user = user;
         this.name = name;
         this.note = note;
         this.type = type;
