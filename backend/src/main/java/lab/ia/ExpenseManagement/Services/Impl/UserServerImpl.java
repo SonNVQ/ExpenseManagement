@@ -50,29 +50,6 @@ public class UserServerImpl implements UserService {
         return new UserIdentityAvailabilityResponse(isAvailable);
     }
 
-    ////TODO: Fix this
-    @Override
-    public User addUser(User user) {
-        if (userRepository.existsByUsername(user.getUsername()))
-            throw new BadRequestException(new ApiResponse(false, "Username already taken!"));
-        if (userRepository.existsByEmail(user.getEmail()))
-            throw new BadRequestException(new ApiResponse(false, "Email already taken!"));
-
-        //encrypt password and set encrypted password to user
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
-
-        //add ROLE_USER to user
-        Set<Role> roles = new HashSet<>();
-        Role userRole = roleRepository.findByName(ERole.ROLE_USER).orElseThrow(() -> new RuntimeException("User role is not found!"));
-        roles.add(userRole);
-        user.setRoles(roles);
-
-        //save user to db
-        userRepository.save(user);
-        return user;
-    }
-
     @Override
     public UserResponse updateUser(String username, UserPrincipal currentUser, UserInfoRequest newUserInfo) {
         User user = userRepository.getUserByUsername(username);

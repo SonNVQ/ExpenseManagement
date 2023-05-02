@@ -20,24 +20,12 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        JwtResponse jwtResponse;
-        try {
-            jwtResponse = authService.login(loginRequest);
-        } catch (BadCredentialsException exception) {
-            return ResponseEntity.badRequest().body(new MessageResponse(exception.getMessage()));
-        }
-        jwtResponse = authService.login(loginRequest);
-
-        return ResponseEntity.ok(jwtResponse);
+        return ResponseEntity.ok(authService.login(loginRequest));
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterRequest registerRequest) {
-        try {
-            authService.register(registerRequest);
-        } catch (Exception exception) {
-            return ResponseEntity.badRequest().body(new MessageResponse(exception.getMessage()));
-        }
+        authService.register(registerRequest);
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 }

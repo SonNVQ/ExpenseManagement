@@ -6,7 +6,7 @@ import lab.ia.ExpenseManagement.Payloads.Response.JwtResponse;
 import org.springframework.security.authentication.BadCredentialsException;
 
 public interface AuthService {
-    JwtResponse login(LoginRequest loginRequest) throws BadCredentialsException;
+    JwtResponse login(LoginRequest loginRequest);
 
-    void register(RegisterRequest registerRequest) throws Exception;
+    void register(RegisterRequest registerRequest);
 }
