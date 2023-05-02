@@ -15,8 +15,6 @@ public interface UserService {
 
     UserIdentityAvailabilityResponse checkEmailAvailable(String password);
 
-    User addUser(User user);
-
     UserResponse updateUser(String username, UserPrincipal currentUser, UserInfoRequest newUserInfo);
 
     ApiResponse deleteUser(String username, UserPrincipal currentUser);
