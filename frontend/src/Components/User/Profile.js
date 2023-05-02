@@ -12,11 +12,7 @@ const Profile = () => {
         </h3>
       </header>
       <p>
-        <strong>Token:</strong> {currentUser.accessToken.substring(0, 20)} ...{" "}
-        {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
-      </p>
-      <p>
-        <strong>Id:</strong> {currentUser.id}
+       <img src="https://picsum.photos/200" className="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt=""/>
       </p>
       <p>
         <strong>Email:</strong> {currentUser.email}
