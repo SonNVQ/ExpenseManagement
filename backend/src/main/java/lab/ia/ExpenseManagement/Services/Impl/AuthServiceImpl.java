@@ -1,10 +1,13 @@
 package lab.ia.ExpenseManagement.Services.Impl;
 
+import lab.ia.ExpenseManagement.Exceptions.AccessDeniedException;
+import lab.ia.ExpenseManagement.Exceptions.BadRequestException;
 import lab.ia.ExpenseManagement.Models.Enums.ERole;
 import lab.ia.ExpenseManagement.Models.Role;
 import lab.ia.ExpenseManagement.Models.User;
 import lab.ia.ExpenseManagement.Payloads.Request.LoginRequest;
 import lab.ia.ExpenseManagement.Payloads.Request.RegisterRequest;
+import lab.ia.ExpenseManagement.Payloads.Response.ApiResponse;
 import lab.ia.ExpenseManagement.Payloads.Response.JwtResponse;
 import lab.ia.ExpenseManagement.Repositories.RoleRepository;
 import lab.ia.ExpenseManagement.Repositories.UserRepository;
@@ -13,7 +16,6 @@ import lab.ia.ExpenseManagement.Security.UserPrincipal;
 import lab.ia.ExpenseManagement.Services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -42,11 +44,14 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     JwtUtils jwtUtils;
 
-    public JwtResponse login(LoginRequest loginRequest) throws BadCredentialsException {
+    public JwtResponse login(LoginRequest loginRequest){
         Authentication authentication;
-        authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-        if (!authentication.isAuthenticated())
-            throw new BadCredentialsException("Bad credentials");
+        try {
+            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        } catch (Exception exception) {
+            throw new AccessDeniedException(new ApiResponse(false, "Wrong username or password!"));
+        }
+//        if (!authentication.isAuthenticated())
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwtToken = jwtUtils.generateJwtToken(authentication);
         UserPrincipal userDetails = (UserPrincipal) authentication.getPrincipal();
@@ -59,15 +64,15 @@ public class AuthServiceImpl implements AuthService {
                 roles);
     }
 
-    public void register(RegisterRequest registerRequest) throws Exception {
+    public void register(RegisterRequest registerRequest){
         //Check if user already existed by username
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
-            throw new Exception("Username is already taken!");
+            throw new BadRequestException(new ApiResponse(false, "Username is already taken!"));
         }
 
         //Check if user already existed by email
         if (userRepository.existsByEmail(registerRequest.getEmail())) {
-            throw new Exception("Email is already in use!");
+            throw new BadRequestException(new ApiResponse(false, "Email is already taken!"));
         }
 
         User user = new User(registerRequest.getUsername(), registerRequest.getFullName(),registerRequest.getEmail(), passwordEncoder.encode(registerRequest.getPassword()));
