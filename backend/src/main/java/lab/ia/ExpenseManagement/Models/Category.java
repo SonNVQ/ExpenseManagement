@@ -1,5 +1,6 @@
 package lab.ia.ExpenseManagement.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "categories", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"id", "name"})
+        @UniqueConstraint(columnNames = {"user_id", "name"})
 })
 @NoArgsConstructor
 @Getter
@@ -27,12 +28,14 @@ public class Category {
     @Column
     private String description;
 
+    @JsonIgnore
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonIgnore
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @ManyToMany(fetch = FetchType.LAZY)
