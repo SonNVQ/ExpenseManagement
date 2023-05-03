@@ -1,8 +1,6 @@
 package lab.ia.ExpenseManagement.Services.Impl;
 
-import lab.ia.ExpenseManagement.Exceptions.AccessDeniedException;
 import lab.ia.ExpenseManagement.Exceptions.BadRequestException;
-import lab.ia.ExpenseManagement.Exceptions.UnauthorizedException;
 import lab.ia.ExpenseManagement.Models.Enums.ERole;
 import lab.ia.ExpenseManagement.Models.Role;
 import lab.ia.ExpenseManagement.Models.User;
@@ -15,12 +13,13 @@ import lab.ia.ExpenseManagement.Repositories.UserRepository;
 import lab.ia.ExpenseManagement.Security.UserPrincipal;
 import lab.ia.ExpenseManagement.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServerImpl implements UserService {
@@ -35,7 +34,8 @@ public class UserServerImpl implements UserService {
 
     @Override
     public UserResponse getCurrentUserInfo(UserPrincipal currentUser) {
-        return new UserResponse(currentUser.getUsername(), currentUser.getFullName(), currentUser.getEmail());
+        List<String> roles = currentUser.getAuthorities().stream().map(item -> item.getAuthority()).collect(Collectors.toList());
+        return new UserResponse(currentUser.getUsername(), currentUser.getFullName(), currentUser.getEmail(), roles);
     }
 
     @Override
@@ -50,31 +50,27 @@ public class UserServerImpl implements UserService {
         return new UserIdentityAvailabilityResponse(isAvailable);
     }
 
+    @PreAuthorize("#username == principal.username || hasRole('ADMIN')")
     @Override
-    public UserResponse updateUser(String username, UserPrincipal currentUser, UserInfoRequest newUserInfo) {
+    public ApiResponse updateUser(String username, UserInfoRequest newUserInfo) {
         User user = userRepository.getUserByUsername(username);
-        if (user.getUsername().equals(currentUser.getUsername()) || currentUser.getAuthorities().contains(new SimpleGrantedAuthority(ERole.ROLE_ADMIN.toString()))) {
-            user.setFullName(newUserInfo.getFullName());
-            if (!user.getEmail().equals(newUserInfo.getEmail()) && userRepository.existsByEmail(newUserInfo.getEmail()))
-                throw new BadRequestException(new ApiResponse(false, "Email is already taken!"));
-            user.setEmail(newUserInfo.getEmail());
-            userRepository.save(user);
-            return new UserResponse(user.getUsername(), user.getFullName(), user.getEmail());
-        }
-        throw new UnauthorizedException(new ApiResponse(false, "You do not have access to take this action!"));
+        user.setFullname(newUserInfo.getFullname());
+        if (!user.getEmail().equals(newUserInfo.getEmail()) && userRepository.existsByEmail(newUserInfo.getEmail()))
+            throw new BadRequestException(new ApiResponse(false, "Email is already taken!"));
+        user.setEmail(newUserInfo.getEmail());
+        userRepository.save(user);
+        return new ApiResponse(true, String.format("User %s updated successfully!", username));
     }
 
+    @PreAuthorize("#username == principal.username || hasRole('ADMIN')")
     @Override
-    public ApiResponse deleteUser(String username, UserPrincipal currentUser) {
+    public ApiResponse deleteUser(String username) {
         User user = userRepository.getUserByUsername(username);
-        if (user.getUsername().equals(currentUser.getUsername()) || currentUser.getAuthorities().contains(new SimpleGrantedAuthority(ERole.ROLE_ADMIN.toString()))) {
-            userRepository.deleteById(user.getId());
-            return new ApiResponse(true, "Successfully deleted user " + username);
-        }
-        ApiResponse apiResponse = new ApiResponse(false, "You don't have permission to delete profile of: " + username);
-        throw new AccessDeniedException(apiResponse);
+        userRepository.deleteById(user.getId());
+        return new ApiResponse(true, String.format("User %s deleted successfully!", username));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public ApiResponse giveRoleByUsername(String username, ERole role) {
         User user = userRepository.getUserByUsername(username);
@@ -86,6 +82,7 @@ public class UserServerImpl implements UserService {
         return new ApiResponse(true, String.format("Added role %s to user %s", role.toString(), username));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public ApiResponse takeRoleByUsername(String username, ERole role) {
         User user = userRepository.getUserByUsername(username);

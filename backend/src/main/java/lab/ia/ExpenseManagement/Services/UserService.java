@@ -1,7 +1,6 @@
 package lab.ia.ExpenseManagement.Services;
 
 import lab.ia.ExpenseManagement.Models.Enums.ERole;
-import lab.ia.ExpenseManagement.Models.User;
 import lab.ia.ExpenseManagement.Payloads.Request.UserInfoRequest;
 import lab.ia.ExpenseManagement.Payloads.Response.ApiResponse;
 import lab.ia.ExpenseManagement.Payloads.Response.UserIdentityAvailabilityResponse;
@@ -15,9 +14,9 @@ public interface UserService {
 
     UserIdentityAvailabilityResponse checkEmailAvailable(String password);
 
-    UserResponse updateUser(String username, UserPrincipal currentUser, UserInfoRequest newUserInfo);
+    ApiResponse updateUser(String username, UserInfoRequest newUserInfo);
 
-    ApiResponse deleteUser(String username, UserPrincipal currentUser);
+    ApiResponse deleteUser(String username);
 
     ApiResponse giveRoleByUsername(String username, ERole role);
 

@@ -16,7 +16,7 @@ public class RegisterRequest {
 
     @NotBlank
     @Size(max = 255)
-    private String fullName;
+    private String fullname;
 
     @NotBlank
     @Size(max = 60)

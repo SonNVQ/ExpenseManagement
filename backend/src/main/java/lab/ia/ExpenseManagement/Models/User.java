@@ -25,9 +25,9 @@ public class User {
     @NotBlank
     private String username;
 
-    @Column(length = 255)
+    @Column(name = "full_name", length = 255)
     @NotBlank
-    private String fullName;
+    private String fullname;
 
     @Column(length = 50, unique = true)
     @NotBlank
@@ -57,9 +57,9 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Record> records = new ArrayList<>();
 
-    public User(String username, String fullName, String email, String password) {
+    public User(String username, String fullname, String email, String password) {
         this.username = username;
-        this.fullName = fullName;
+        this.fullname = fullname;
         this.email = email;
         this.password = password;
     }

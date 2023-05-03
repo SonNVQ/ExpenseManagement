@@ -1,7 +1,6 @@
 package lab.ia.ExpenseManagement.Controllers;
 
 import jakarta.validation.Valid;
-import lab.ia.ExpenseManagement.Models.User;
 import lab.ia.ExpenseManagement.Payloads.Request.UserInfoRequest;
 import lab.ia.ExpenseManagement.Security.CurrentUser;
 import lab.ia.ExpenseManagement.Security.UserPrincipal;
@@ -34,18 +33,14 @@ public class UserController {
     }
 
     @DeleteMapping("/{username}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public ResponseEntity<?> deleteUser(@PathVariable("username") String username,
-                                        @CurrentUser UserPrincipal currentUser) {
-        return ResponseEntity.ok(userService.deleteUser(username, currentUser));
+    public ResponseEntity<?> deleteUser(@PathVariable("username") String username) {
+        return ResponseEntity.ok(userService.deleteUser(username));
     }
 
     @PutMapping("/{username}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<?> updateUser(@PathVariable("username") String username,
-                                        @CurrentUser UserPrincipal currentUser,
                                         @Valid @RequestBody UserInfoRequest newUserInfo) {
-        return ResponseEntity.ok(userService.updateUser(username, currentUser, newUserInfo));
+        return ResponseEntity.ok(userService.updateUser(username, newUserInfo));
     }
 
 }
