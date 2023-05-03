@@ -75,7 +75,7 @@ public class AuthServiceImpl implements AuthService {
             throw new BadRequestException(new ApiResponse(false, "Email is already taken!"));
         }
 
-        User user = new User(registerRequest.getUsername(), registerRequest.getFullName(),registerRequest.getEmail(), passwordEncoder.encode(registerRequest.getPassword()));
+        User user = new User(registerRequest.getUsername(), registerRequest.getFullname(),registerRequest.getEmail(), passwordEncoder.encode(registerRequest.getPassword()));
         Set<String> requestRoles = registerRequest.getRoles();
         Set<Role> roles = new HashSet<>();
 

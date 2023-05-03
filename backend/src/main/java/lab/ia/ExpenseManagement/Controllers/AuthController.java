@@ -3,12 +3,10 @@ package lab.ia.ExpenseManagement.Controllers;
 import jakarta.validation.Valid;
 import lab.ia.ExpenseManagement.Payloads.Request.LoginRequest;
 import lab.ia.ExpenseManagement.Payloads.Request.RegisterRequest;
-import lab.ia.ExpenseManagement.Payloads.Response.JwtResponse;
 import lab.ia.ExpenseManagement.Payloads.Response.MessageResponse;
 import lab.ia.ExpenseManagement.Services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
