@@ -78,6 +78,10 @@ public class UserPrincipal implements UserDetails {
         return true;
     }
 
+    public boolean isAdmin() {
+        return this.authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
