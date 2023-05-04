@@ -36,6 +36,16 @@ const vusername = (value) => {
   }
 };
 
+const vfullname = (value) => {
+  if (value.length < 3 || value.length > 20) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        The username must be between 3 and 20 characters.
+      </div>
+    );
+  }
+};
+
 const vpassword = (value) => {
   if (value.length < 6 || value.length > 40) {
     return (
@@ -51,6 +61,7 @@ const Register = () => {
   const checkBtn = useRef();
 
   const [username, setUsername] = useState("");
+  const [fullname, setfullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [successful, setSuccessful] = useState(false);
@@ -59,6 +70,11 @@ const Register = () => {
   const onChangeUsername = (e) => {
     const username = e.target.value;
     setUsername(username);
+  };
+
+  const onChangeFullname = (e) => {
+    const fullname = e.target.value;
+    setfullname(fullname);
   };
 
   const onChangeEmail = (e) => {
@@ -80,7 +96,7 @@ const Register = () => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(username, email, password).then(
+      AuthService.register(username,fullname, email, password).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -125,6 +141,18 @@ const Register = () => {
               </div>
 
               <div className="form-group">
+                <label htmlFor="fullname">Fullname</label>
+                <Input
+                  type="text"
+                  className="form-control"
+                  name="fullname"
+                  value={fullname}
+                  onChange={onChangeFullname}
+                  validations={[required, vfullname]}
+                />
+              </div>
+
+              <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <Input
                   type="text"
@@ -148,7 +176,7 @@ const Register = () => {
                 />
               </div>
 
-              <div className="form-group">
+              <div className="form-group mt-1">
                 <button className="btn btn-primary btn-block">Sign Up</button>
               </div>
             </div>
