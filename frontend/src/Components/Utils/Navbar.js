@@ -5,6 +5,7 @@ import AuthService from "../../Services/auth.service";
 export default function Navbar() {
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [showUserBoard, setShowUserBoard] = useState(false);
+  const [ShowUserList, setShowUserList] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
 
   useEffect(() => {
@@ -14,6 +15,7 @@ export default function Navbar() {
       setCurrentUser(user);
       setShowUserBoard(user.roles.includes("ROLE_USER"));
       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+      setShowUserList(user.roles.includes("ROLE_ADMIN"));
     }
   }, []);
 
@@ -45,6 +47,14 @@ export default function Navbar() {
           <li className="nav-item">
             <Link to={"/user"} className="nav-link">
               User Board
+            </Link>
+          </li>
+        )}
+
+        {ShowUserList && (
+          <li className="nav-item">
+            <Link to={"/ShowUserList"} className="nav-link">
+              UserList
             </Link>
           </li>
         )}
@@ -84,6 +94,13 @@ export default function Navbar() {
               Sign Up
             </Link>
           </li>
+
+          <li className="nav-item">
+            <Link to={"/ShowUserList"} className="nav-link">
+              ShowUserList
+            </Link>
+          </li>
+
         </div>
       )}
     </nav>
