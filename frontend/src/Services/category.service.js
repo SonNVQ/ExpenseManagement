@@ -3,18 +3,33 @@ import authHeader from "./auth-header";
 
 const API_URL = "http://localhost:8090/api/";
 
+const getCategories = () => {
+  return axios.get(API_URL + "categories", { headers: authHeader() });
+};
+
 
 const getAnCategory = (id) => {
   return axios.get(API_URL + "categories?id="+id, { headers: authHeader() });
+};
+
+const deleteCategory = (id) => {
+  return axios.delete(API_URL + "categories?id="+id, { headers: authHeader() });
 };
 
 const addCategory = (name,description,userId) => {
   return axios.post(API_URL + "categories",{name,description,userId}, { headers: authHeader() });
 };
 
-const UserService = {
-    getAnCategory,
-    addCategory,
+const updateCategory = (name,description,userId) => {
+  return axios.put(API_URL + "categories",{name,description,userId}, { headers: authHeader() });
 };
 
-export default UserService;
+const CategoryService = {
+    getCategories,
+    getAnCategory,
+    addCategory,
+    deleteCategory,
+    updateCategory
+};
+
+export default CategoryService;
