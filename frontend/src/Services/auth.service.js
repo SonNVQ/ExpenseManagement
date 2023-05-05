@@ -10,9 +10,10 @@ getCurrentUser(): get stored user information (including JWT)
 
 const API_URL = "http://localhost:8090/api/auth/";
 
-const register = (username, email, password) => {
+const register = (username,fullname, email, password) => {
   return axios.post(API_URL + "register", {
     username,
+    fullname,
     email,
     password,
   });
@@ -20,14 +21,14 @@ const register = (username, email, password) => {
 
 const login = async (username, password) => {
   const response = await axios
-        .post(API_URL + "login", {
-            username,
-            password,
-        });
-    // if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
-    // }
-    return response.data;
+    .post(API_URL + "login", {
+      username,
+      password,
+    });
+  // if (response.data.accessToken) {
+    localStorage.setItem("user", JSON.stringify(response.data));
+  // }
+  return response.data;
 };
 
 const logout = () => {
