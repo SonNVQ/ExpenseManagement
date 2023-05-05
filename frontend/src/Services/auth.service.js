@@ -19,15 +19,13 @@ const register = (username,fullname, email, password) => {
   });
 };
 
-const login = async (username, password) => {
-  const response = await axios
+const login =  (username, password) => {
+  const response =  axios
         .post(API_URL + "login", {
             username,
             password,
         });
-    // if (response.data.accessToken) {
-        localStorage.setItem("user", JSON.stringify(response.data));
-    // }
+    localStorage.setItem("user", JSON.stringify(response.data)); 
     return response.data;
 };
 

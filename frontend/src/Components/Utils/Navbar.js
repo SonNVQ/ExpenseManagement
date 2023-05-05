@@ -1,53 +1,92 @@
-import React, { useState } from 'react';
-import {
-  MDBContainer,
-  MDBNavbar,
-  MDBNavbarBrand,
-  MDBNavbarToggler,
-  MDBNavbarNav,
-  MDBNavbarItem,
-  MDBNavbarLink,
-  MDBIcon,
-  MDBCollapse
-} from 'mdb-react-ui-kit';
-
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import AuthService from "../../Services/auth.service";
 
 export default function Navbar() {
-  const [showNav, setShowNav] = useState(false);
+  const [showAdminBoard, setShowAdminBoard] = useState(false);
+  const [showUserBoard, setShowUserBoard] = useState(false);
+  const [currentUser, setCurrentUser] = useState(undefined);
 
+  useEffect(() => {
+    const user = AuthService.getCurrentUser();
+
+    if (user) {
+      setCurrentUser(user);
+      setShowUserBoard(user.roles.includes("ROLE_USER"));
+      setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
+    }
+  }, []);
+
+  const logOut = () => {
+    AuthService.logout();
+  };
   return (
-    <MDBNavbar expand='lg' light bgColor='light'>
-      <MDBContainer fluid>
-        <MDBNavbarBrand href='#'>Navbar</MDBNavbarBrand>
-        <MDBNavbarToggler
-          type='button'
-          aria-expanded='false'
-          aria-label='Toggle navigation'
-          onClick={() => setShowNav(!showNav)}
-        >
-          <MDBIcon icon='bars' fas />
-        </MDBNavbarToggler>
-        <MDBCollapse navbar show={showNav}>
-          <MDBNavbarNav>
-            <MDBNavbarItem>
-              <MDBNavbarLink active aria-current='page' href='#'>
-                Home
-              </MDBNavbarLink>
-            </MDBNavbarItem>
-            <MDBNavbarItem>
-              <MDBNavbarLink href='#'>Features</MDBNavbarLink>
-            </MDBNavbarItem>
-            <MDBNavbarItem>
-              <MDBNavbarLink href='#'>Pricing</MDBNavbarLink>
-            </MDBNavbarItem>
-            <MDBNavbarItem>
-              <MDBNavbarLink disabled href='#' tabIndex={-1} aria-disabled='true'>
-                Disabled
-              </MDBNavbarLink>
-            </MDBNavbarItem>
-          </MDBNavbarNav>
-        </MDBCollapse>
-      </MDBContainer>
-    </MDBNavbar>
+    <div className="p-1">
+    <nav className="navbar navbar-expand navbar-dark bg-dark">
+      <Link to={"/"} className="navbar-brand">
+        Assignment
+      </Link>
+      <div className="navbar-nav mr-auto">
+        <li className="nav-item">
+          <Link to={"/home"} className="nav-link">
+            Home
+          </Link>
+        </li>
+
+        {showAdminBoard && (
+          <li className="nav-item">
+            <Link to={"/admin"} className="nav-link">
+              Admin Board
+            </Link>
+          </li>
+        )}
+
+        {showUserBoard && (
+          <li className="nav-item">
+            <Link to={"/user"} className="nav-link">
+              User Board
+            </Link>
+          </li>
+        )}
+
+        {/* {currentUser && (
+          <li className="nav-item">
+            <Link to={"/user"} className="nav-link">
+              User
+            </Link>
+          </li>
+        )} */}
+      </div>
+
+      {currentUser ? (
+        <div className="navbar-nav ml-auto">
+          <li className="nav-item">
+            <Link to={"/profile"} className="nav-link">
+              {currentUser.username}
+            </Link>
+          </li>
+          <li className="nav-item">
+            <a href="/login" className="nav-link" onClick={logOut}>
+              LogOut
+            </a>
+          </li>
+        </div>
+      ) : (
+        <div className="navbar-nav ml-auto">
+          <li className="nav-item">
+            <Link to={"/login"} className="nav-link">
+              Login
+            </Link>
+          </li>
+
+          <li className="nav-item">
+            <Link to={"/register"} className="nav-link">
+              Sign Up
+            </Link>
+          </li>
+        </div>
+      )}
+    </nav>
+    </div>
   );
 }

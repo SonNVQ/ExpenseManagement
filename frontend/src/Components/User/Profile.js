@@ -17,6 +17,10 @@ const Profile = () => {
       <p>
         <strong>Email:</strong> {currentUser.email}
       </p>
+      <p>
+        <strong>Token:</strong> {currentUser.token.substring(0, 20)} ...{" "}
+        {currentUser.token.substr(currentUser.token.length - 20)}
+      </p>
       <strong>Authorities:</strong>
       <ul>
         {currentUser.roles &&

@@ -72,7 +72,7 @@ const Login = () => {
     <div className="col-md-12">
       <div className="card card-container">
         <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+          src="https://picsum.photos/400"
           alt="profile-img"
           className="profile-img-card"
         />
@@ -102,7 +102,7 @@ const Login = () => {
             />
           </div>
 
-          <div className="form-group">
+          <div className="form-group mt-2">
             <button className="btn btn-primary btn-block" disabled={loading}>
               {loading && (
                 <span className="spinner-border spinner-border-sm"></span>
@@ -112,7 +112,7 @@ const Login = () => {
           </div>
 
           {message && (
-            <div className="form-group">
+            <div className="form-group mt-2">
               <div className="alert alert-danger" role="alert">
                 {message}
               </div>
