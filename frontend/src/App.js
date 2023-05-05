@@ -25,8 +25,8 @@ import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 // Library
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+//import { ToastContainer } from "react-toastify";
+//import "react-toastify/dist/ReactToastify.css";
 
 import Login from "./Components/User/Login";
 import Register from "./Components/User/Register";

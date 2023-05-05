@@ -110,6 +110,20 @@ const Login = () => {
               <span>Login</span>
             </button>
           </div>
+          
+          <p>
+            You don't have account?
+            <a href="/Register">Sign up</a>
+          </p>
+
+          {/* <div className="form-group mt-2">
+            <button className="btn btn-primary btn-block" disabled={loading}>
+              {loading && (
+                <span className="spinner-border spinner-border-sm"></span>
+              )}
+              <span>Register</span>
+            </button>
+          </div> */}
 
           {message && (
             <div className="form-group mt-2">
