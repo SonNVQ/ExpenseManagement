@@ -24,6 +24,9 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+// Library
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Login from "./Components/User/Login";
 import Register from "./Components/User/Register";
@@ -32,15 +35,15 @@ import Profile from "./Components/User/Profile";
 import BoardUser from "./Components/User/BoardUser";
 import BoardAdmin from "./Components/User/BoardAdmin";
 import Navbar from "./Components/Utils/Navbar";
-
+import CategoryForm from "./Components/Category/UpdateCategory";
+import AddCategoryForm from "./Components/Category/AddCategory";
 const App = () => {
 
 
   return (
     <>
     <Navbar/>
-      <div className="container mt-3">
-     
+      <div className="container mt-3">    
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/home" element={<Home/>} />
@@ -49,6 +52,8 @@ const App = () => {
           <Route path="/profile" element={<Profile/>} />
           <Route path="/user" element={<BoardUser/>} />
           <Route path="/admin" element={<BoardAdmin/>} />
+          <Route path="/addcategory" element={<AddCategoryForm/>} />
+          <Route path="/updatecategory" element={<CategoryForm/>} />
         </Routes>
       </div>
       </>
