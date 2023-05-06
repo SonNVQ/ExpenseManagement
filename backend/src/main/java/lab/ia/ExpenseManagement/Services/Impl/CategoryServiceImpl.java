@@ -25,13 +25,12 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     CategoryRepository categoryRepository;
 
-
     @Override
     public PagedResponse<Category> getCategories(int page, int size, UserPrincipal currentUser) {
         User user = userRepository.getUserByUserPrincipal(currentUser);
         Pageable pageable = PageRequest.of(page, size);
-        Page<Category> categories = categoryRepository.findAllByUser(user, pageable);
-        return new PagedResponse<>(categories.getContent().stream().toList(), categories.getNumber(), categories.getSize(), categories.getTotalPages(), categories.getTotalElements(), categories.isLast());
+        Page<Category> categories = categoryRepository.findCategoriesByUser(user, pageable);
+        return new PagedResponse<>(categories.getContent(), categories.getNumber(), categories.getSize(), categories.getTotalPages(), categories.getTotalElements(), categories.isLast());
     }
 
     @Override

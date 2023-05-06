@@ -14,6 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
+//@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 @NoArgsConstructor
 @Getter
 @Setter
@@ -26,7 +27,7 @@ public class User {
     @NotBlank
     private String username;
 
-    @Column(name = "full_name", length = 255)
+    @Column(name = "full_name")
     @NotBlank
     private String fullname;
 
