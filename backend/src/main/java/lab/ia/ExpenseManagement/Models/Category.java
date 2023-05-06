@@ -38,8 +38,7 @@ public class Category {
     @JsonIgnore
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "category_records", joinColumns = @JoinColumn(name = "category_id"), inverseJoinColumns = @JoinColumn(name = "record_id"))
+    @ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)
     private List<Record> records = new ArrayList<>();
 
     public Category(String name, String description, User user) {
