@@ -37,6 +37,7 @@ import BoardAdmin from "./Components/User/BoardAdmin";
 import Navbar from "./Components/Utils/Navbar";
 import CategoryForm from "./Components/Category/UpdateCategory";
 import AddCategoryForm from "./Components/Category/AddCategory";
+import GetUsers from "./Components/User/UserList";
 const App = () => {
 
 
@@ -54,6 +55,7 @@ const App = () => {
           <Route path="/admin" element={<BoardAdmin/>} />
           <Route path="/addcategory" element={<AddCategoryForm/>} />
           <Route path="/updatecategory" element={<CategoryForm/>} />
+          <Route path="/UserList" element={<GetUsers/>} />
         </Routes>
       </div>
       </>

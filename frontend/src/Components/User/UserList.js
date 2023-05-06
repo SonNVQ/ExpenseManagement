@@ -1,31 +1,51 @@
 import React from "react";
-import AuthService from "../../Services/auth.service";
+
 
 const GetUsers = () => {
-  const GetAllUsers = AuthService.getAllUsers();
+  // const GetAllUsers = AuthService.getAllUsers();
+  const GetAllUsers = [
+    { username: "nam1", email: "nam1@gmail.com", role: "ROLE_USER" },
+    { username: 'nam2', email: 'nam2@gmail.com', role: 'ROLE_ADIMN' },
+    { username: 'nam3', email: 'nam3@gmail.com', role: 'ROLE_USER' },
+  ]
 
   return (
-    <div className="container">
-      <header className="jumbotron">
-        <h3>
-          <strong>{GetAllUsers.username}</strong> Profile
-        </h3>
-      </header>
-      <p>
-       <img src="https://picsum.photos/200" className="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" alt=""/>
-      </p>
-      <p>
-        <strong>Email:</strong> {GetAllUsers.email}
-      </p>
-      <p>
-        <strong>Token:</strong> {GetAllUsers.token.substring(0, 20)} ...{" "}
-        {GetAllUsers.token.substr(GetAllUsers.token.length - 20)}
-      </p>
-      <strong>Authorities:</strong>
-      <ul>
-        {GetAllUsers.roles &&
-          GetAllUsers.roles.map((role, index) => <li key={index}>{role}</li>)}
-      </ul>
+    <div className="">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Authority</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            GetAllUsers.map((todo, index) => (
+              <tr>
+                <td>{todo.username}</td>
+                <td>{todo.email}</td>
+                <td>{todo.role}</td>
+                <div class="container-user-action">
+                  <div class="container-update">
+                    <a href="/users/update?id=<?= $user->id ?>" class="btn-secondary">Update</a>
+                  </div>
+                  <div class="container-delete">
+                    <form action="/users/delete" method="post">
+                      <button type="submit" name="id" value="<?= $user->id ?>"
+                        class="btn-danger"
+                        onclick='return confirm("Delete this user?")'>
+                        Delete
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
     </div>
   );
 };
