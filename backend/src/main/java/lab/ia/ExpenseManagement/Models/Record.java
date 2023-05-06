@@ -1,5 +1,6 @@
 package lab.ia.ExpenseManagement.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lab.ia.ExpenseManagement.Models.Enums.ERecordType;
 import lombok.*;
@@ -19,6 +20,7 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
