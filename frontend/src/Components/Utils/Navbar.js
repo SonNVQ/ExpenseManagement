@@ -53,7 +53,7 @@ export default function Navbar() {
 
         {ShowUserList && (
           <li className="nav-item">
-            <Link to={"/ShowUserList"} className="nav-link">
+            <Link to={"/UserList"} className="nav-link">
               UserList
             </Link>
           </li>
@@ -95,11 +95,7 @@ export default function Navbar() {
             </Link>
           </li>
 
-          <li className="nav-item">
-            <Link to={"/ShowUserList"} className="nav-link">
-              ShowUserList
-            </Link>
-          </li>
+          
 
         </div>
       )}

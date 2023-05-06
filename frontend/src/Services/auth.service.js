@@ -39,11 +39,17 @@ const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
 
+const getAllUsers = () => {
+  return JSON.parse(localStorage.getItem("user"));
+};
+
 const AuthService = {
   register,
   login,
   logout,
   getCurrentUser,
+  getAllUsers,
 };
+
 
 export default AuthService;
