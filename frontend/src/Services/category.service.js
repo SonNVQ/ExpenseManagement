@@ -17,11 +17,11 @@ const deleteCategory = (id) => {
 };
 
 const addCategory = (name,description,userId) => {
-  return axios.post(API_URL + "categories",{name,description,userId}, { headers: authHeader() });
+  return axios.post(API_URL + "categories",{name,description}, { headers: authHeader() });
 };
 
 const updateCategory = (name,description,userId) => {
-  return axios.put(API_URL + "categories",{name,description,userId}, { headers: authHeader() });
+  return axios.put(API_URL + "categories",{name,description}, { headers: authHeader() });
 };
 
 const CategoryService = {
