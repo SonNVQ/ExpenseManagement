@@ -13,8 +13,8 @@
     "mdb-react-ui-kit": "^6.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.1",
-    "react-scripts": "5.0.1",
+    "react-router-dom": "^6.10.0",
+    "react-scripts": "^5.0.1",
     "react-toastify": "^9.1.2",
     "react-validation": "^3.0.7",
     "validator": "^13.9.0",
@@ -43,5 +43,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/node": "^20.1.0"
   }
 }

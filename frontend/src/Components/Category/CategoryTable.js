@@ -51,6 +51,7 @@ function CategoryTable() {
       </table>
     </div>
   );
+
 }
 
 export default CategoryTable;

@@ -10,6 +10,7 @@ function AddCategoryForm() {
 
   const handleSubmit = async event => {
     event.preventDefault();
+
     const userLocalStorage = localStorage.getItem('user');
     const token = JSON.parse(userLocalStorage).token;
     const response = await fetch("http://localhost:8090/api/categories", {
@@ -20,14 +21,14 @@ function AddCategoryForm() {
       },
       mode: 'cors',
       body: JSON.stringify(category)
-    }
-    );
+    });
+
     const data = await response.json();
     console.log(data);
     setCategory({
       description: "",
       name: "",
-      user_id: ""
+
     });
       await CategoryService.addCategory(category.name, category.description);
       console.log("Category created successfully");
