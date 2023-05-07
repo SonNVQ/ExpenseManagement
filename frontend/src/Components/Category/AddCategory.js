@@ -50,12 +50,7 @@ function AddCategoryForm() {
       <label>
         Description:   </label>
         <input type="text" name="description" value={category.description} onChange={handleChange}   placeholder="e.g., Go to meet my friends and enjoy the day." required/>
-      </div>  
-      <div  className="grid-xs">
-      <label>
-        User ID:    </label>
-        <input type="text" name="user_id" value={category.user_id} onChange={handleChange} />
-        </div>    
+      </div>      
       <button className="btn btn--dark mt-2" type="submit">Add Category</button>
     </form>
   </div>
