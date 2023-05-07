@@ -61,6 +61,11 @@ export default function Navbar() {
       {currentUser ? (
         <div className="navbar-nav ml-auto">
           <li className="nav-item">
+            <a href="/category" className="nav-link">
+              Category
+            </a>
+          </li>
+          <li className="nav-item">
             <Link to={"/profile"} className="nav-link">
               {currentUser.username}
             </Link>
