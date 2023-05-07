@@ -16,12 +16,13 @@ const deleteCategory = (id) => {
   return axios.delete(API_URL + "categories?id="+id, { headers: authHeader() });
 };
 
+
 const addCategory = (name,description) => {
   return axios.post(API_URL + "categories",{name,description}, { headers: {Authorization:authHeader()} });
 };
 
 const updateCategory = (name,description,userId) => {
-  return axios.put(API_URL + "categories",{name,description,userId}, { headers: authHeader() });
+  return axios.put(API_URL + "categories",{name,description}, { headers: authHeader() });
 };
 
 const CategoryService = {
