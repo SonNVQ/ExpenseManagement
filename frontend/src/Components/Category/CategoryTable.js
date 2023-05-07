@@ -1,56 +1,52 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+
+import React, {useState, useEffect} from "react";
 import CategoryService from "../../Services/category.service";
 
-function CategoryTable() {
-  const [categories, setCategories] = useState([]);
+const CategoryTable = () => {
+    const [categories, setCategories] = useState([]);
+    // Fetch user data from API
+    useEffect(() => {
+        async function fetchData() {
+            const response = await CategoryService.getCategories();
+            setCategories(response.data);
+        }
 
-  useEffect(() => {
-    async function fetchCategories() {
-      const response = await CategoryService.getCategories();
-      setCategories(response.data);
-    }
-    fetchCategories();
-  }, []);
+        fetchData();
+    }, []);
 
-  const handleDelete = async (id) => {
-    await CategoryService.deleteCategory(id);
-    setCategories(categories.filter((category) => category.id !== id));
-  };
+    return (
+        <>
+            <div className="table">
+                <table>
+                    <thead>
+                    <tr style={{textAlign: "center"}}>
+                        {["ID", "Name", "Description"].map(
+                            (i, index) => (
+                                <th key={index}>{i}</th>
+                            )
+                        )}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {categories?.content?.map((category) => (
+                        <tr key={category.id}>
+                            <td className="pl-4">{category.id}</td>
+                            <td>
+                                <span className="text-muted">{category.name}</span>
+                            </td>
+                            <td>
+                                <span className="text-muted">{category.description}</span>
+                            </td>
+                            <td>
 
-  return (
-    <div>
-      <h2 className="h3">Categories</h2>
-      <Link to="/addCategory" className="btn btn--dark mt-2">
-        Add Category
-      </Link>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {categories.map((category) => (
-            <tr key={category.id}>
-              <td>{category.name}</td>
-              <td>{category.description}</td>
-              <td>
-                <button
-                  className="btn btn--danger"
-                  onClick={() => handleDelete(category.id)}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
+        </>
+    );
 
 }
 
