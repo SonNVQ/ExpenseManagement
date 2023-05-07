@@ -19,7 +19,9 @@ const CreateRecordPage = () => {
     const handleSelectExpense = (e) => setTypeRecord(e.target.value);
 
     useEffect(() => {
-        
+        const fetchCategory = () => {
+            
+        }
     })
 
     const handleCreate = async (e) => {

@@ -16,15 +16,18 @@ class RecordService {
 
 class CategoryService {
     async getAll() {
-        const res = await _axios.get('categories?page=0&size=20');
+        const res = await _axios.get('categories?page=0&size=1000');
         return res.data;
     }
 }
 
 class ApiService {
+    Users;
+    Records = new RecordService();
+    Categories = new CategoryService();
+
     constructor() {
         _axios.interceptors.request.use((config) => {
-        //   const jwt = localStorage.getItem('jwt')
           const token = JSON.parse(localStorage.getItem('user')).token;
           if (token) {
             config.headers.Authorization = token ? `Bearer ${token}` : undefined
@@ -32,10 +35,6 @@ class ApiService {
           return config
         })
     }
-
-    Users ;
-    Records = new RecordService();
-    Rategories;
 }
 
 export const API_SERVICE = new ApiService();

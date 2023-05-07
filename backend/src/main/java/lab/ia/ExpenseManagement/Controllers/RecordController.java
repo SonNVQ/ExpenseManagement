@@ -11,7 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
-
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/api/records")
 @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
@@ -44,6 +44,7 @@ public class RecordController {
     @PostMapping
     public ResponseEntity<?> addRecord(@RequestBody RecordRequest recordRequest,
                                        @CurrentUser UserPrincipal currentUser) {
+        System.out.println(recordRequest);
         return ResponseEntity.ok(recordServer.addRecord(recordRequest, currentUser));
     }
 
