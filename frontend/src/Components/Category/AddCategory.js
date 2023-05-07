@@ -1,27 +1,33 @@
 import React, { useState } from "react";
 import CategoryService from "../../Services/category.service";
 import authHeader from "../../Services/auth-header";
+import {queries} from "@testing-library/react";
+import {API_SERVICE} from "../../Services/base-service";
+
 function AddCategoryForm() {
   const [category, setCategory] = useState({
     description: "",
     name: "",
-
   });
 
   const handleSubmit = async event => {
     event.preventDefault();
+    console.log(event);
 
     const userLocalStorage = localStorage.getItem('user');
     const token = JSON.parse(userLocalStorage).token;
-    const response = await fetch("http://localhost:8090/api/categories", {
-      method: "POST",
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-type': 'application/json'
-      },
-      mode: 'cors',
-      body: JSON.stringify(category)
-    });
+    // const response = await fetch("http://localhost:8090/api/categories", {
+    //   method: "POST",
+    //   headers: {
+    //     'Authorization': `Bearer ${token}`,
+    //     'Content-type': 'application/json'
+    //   },
+    //   mode: 'cors',
+    //   body: JSON.stringify(category)
+    // });
+    // const response = CategoryService.addCategory(category.name, category.description);
+    const response = await API_SERVICE.Categories.create(category);
+    console.log(response);
 
     const data = await response.json();
     console.log(data);
