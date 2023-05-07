@@ -1,9 +1,10 @@
 import React from "react";
 import { useState } from "react";
+import AuthService from "../../Services/auth.service";
 
 
 const GetUsers = () => {
-
+  // const UserList = AuthService.getAllUsers();
   // const GetAllUsers =[
   const [users, setUsers] = useState([
     { id: 1, email: "nam1@gmail.com", fullname: "namnam1", username: "nam1" },
@@ -79,17 +80,17 @@ const GetUsers = () => {
             <tbody>
               {users.map(users => (
                 
-                  <li key={users.id}>
+                  <tr key={users.id}>
                     <td>{users.email}</td>
                     <td>{users.fullname}</td>
                     <td>{users.username}</td>
                     
                     <div class="container-update">
-                     <a href="" class="btn-secondary">Update</a>
+                     <a href="/Profile" class="btn-secondary">Update</a>
                     </div>
                     <button type="submit" name="id" value="<?= $user->id ?>"
                          class="btn-danger" onClick={() => deleteById(users.id)}>Delete</button>
-                  </li>
+                  </tr>
                 
               ))}
             </tbody>

@@ -39,9 +39,19 @@ const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
 
-const getAllUsers = () => {
-  return JSON.parse(localStorage.getItem("user"));
+const getAllUsers = async () => {
+  const response = await axios.get(API_URL)
+    console.log(response.data);
+      const users = response.data;
+      this.setUserList({users});
 };
+
+const DeleteUser = async () => {
+  const response = await axios.delete(API_URL)
+    console.log(response);
+    console.log(response.data);
+};
+
 
 const AuthService = {
   register,
@@ -49,6 +59,7 @@ const AuthService = {
   logout,
   getCurrentUser,
   getAllUsers,
+  DeleteUser,
 };
 
 
