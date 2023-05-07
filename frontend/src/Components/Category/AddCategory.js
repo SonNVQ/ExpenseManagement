@@ -10,7 +10,19 @@ function AddCategoryForm() {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    const response = CategoryService.addCategory(category);
+
+    const userLocalStorage = localStorage.getItem('user');
+    const token = JSON.parse(userLocalStorage).token;
+    const response = await fetch("http://localhost:8090/api/categories", {
+      method: "POST",
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-type': 'application/json'
+      },
+      mode: 'cors',
+      body: JSON.stringify(category)
+    });
+
     const data = await response.json();
     console.log(data);
     setCategory({

@@ -15,7 +15,7 @@ public class CategoryController {
     CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<?> getCategories(@RequestParam(name = "page", defaultValue = "0") int page,
+    public ResponseEntity <?> getCategories(@RequestParam(name = "page", defaultValue = "0") int page,
                                           @RequestParam(name = "size", defaultValue = "10") int size,
                                           @CurrentUser UserPrincipal currentUser) {
         return ResponseEntity.ok(categoryService.getCategories(page, size, currentUser));
