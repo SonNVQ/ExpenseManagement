@@ -1,51 +1,57 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import CategoryService from "../../Services/category.service";
 
-const CategoryTable = () => {
-    const [categories, setCategories] = useState([]);
-     // Fetch user data from API
+function CategoryTable() {
+  const [categories, setCategories] = useState([]);
+
   useEffect(() => {
-    async function fetchData() {
+    async function fetchCategories() {
       const response = await CategoryService.getCategories();
       setCategories(response.data);
     }
-    fetchData();
+    fetchCategories();
   }, []);
 
-    return(
-        <>
-         <div className="table">
-         <table>
-         <thead>
+  const handleDelete = async (id) => {
+    await CategoryService.deleteCategory(id);
+    setCategories(categories.filter((category) => category.id !== id));
+  };
+
+  return (
+    <div>
+      <h2 className="h3">Categories</h2>
+      <Link to="/addCategory" className="btn btn--dark mt-2">
+        Add Category
+      </Link>
+      <table className="table">
+        <thead>
           <tr>
-            {["Name", "Description", "Username","",""].map(
-              (i, index) => (
-                <th key={index}>{i}</th>
-              )
-            )}
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-                  {categories.map((category) => (
-                    <tr key={category.id}>
-                      <td className="pl-4">{category.id}</td>
-                      <td>
-                        <span className="text-muted">{category.name}</span>
-                      </td>
-                      <td>
-                        <span className="text-muted">{category.description}</span>
-                      </td>                  
-                      <td>
-                     
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
+          {categories.map((category) => (
+            <tr key={category.id}>
+              <td>{category.name}</td>
+              <td>{category.description}</td>
+              <td>
+                <button
+                  className="btn btn--danger"
+                  onClick={() => handleDelete(category.id)}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 
-         </table>
-         </div>
-        </>
-    );
 }
 
 export default CategoryTable;

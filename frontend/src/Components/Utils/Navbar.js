@@ -61,10 +61,22 @@ export default function Navbar() {
       {currentUser ? (
         <div className="navbar-nav ml-auto">
           <li className="nav-item">
+            <a href="/category" className="nav-link">
+              Category
+            </a>
+          </li>
+          <li className="nav-item">
             <Link to={"/profile"} className="nav-link">
               {currentUser.username}
             </Link>
           </li>
+
+          <li className="nav-item">
+            <Link to={"/list-expense"} className="nav-link">
+              List Expense
+            </Link>
+          </li>
+
           <li className="nav-item">
             <a href="/login" className="nav-link" onClick={logOut}>
               LogOut
