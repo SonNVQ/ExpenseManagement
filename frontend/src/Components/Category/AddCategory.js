@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CategoryService from "../../Services/category.service";
 import authHeader from "../../Services/auth-header";
 import { redirect } from "react-router-dom";
+
 function AddCategoryForm() {
   const [category, setCategory] = useState({
     description: "",
@@ -10,7 +11,6 @@ function AddCategoryForm() {
 
   const handleSubmit = async event => {
     event.preventDefault();
-
     const userLocalStorage = localStorage.getItem('user');
     const token = JSON.parse(userLocalStorage).token;
     const response = await fetch("http://localhost:8090/api/categories", {
@@ -22,7 +22,6 @@ function AddCategoryForm() {
       mode: 'cors',
       body: JSON.stringify(category)
     });
-
     const data = await response.json();
     console.log(data);
     setCategory({
