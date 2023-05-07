@@ -20,7 +20,8 @@ function AddCategoryForm() {
       },
       mode: 'cors',
       body: JSON.stringify(category)
-    });
+    }
+    );
     const data = await response.json();
     console.log(data);
     setCategory({
@@ -30,7 +31,7 @@ function AddCategoryForm() {
     });
       await CategoryService.addCategory(category.name, category.description);
       console.log("Category created successfully");
-      redirect("/category");
+      window.location.replace = 'http://localhost:3000/category';
   };
 
   const handleChange = event => {

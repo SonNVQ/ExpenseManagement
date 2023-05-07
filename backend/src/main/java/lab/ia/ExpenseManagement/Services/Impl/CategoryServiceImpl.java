@@ -33,6 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
         return new PagedResponse<>(categories.getContent(), categories.getNumber(), categories.getSize(), categories.getTotalPages(), categories.getTotalElements(), categories.isLast());
     }
 
+
     @Override
     public Category addCategory(CategoryRequest category, UserPrincipal currentUser) {
         User user = userRepository.getUserByUserPrincipal(currentUser);
