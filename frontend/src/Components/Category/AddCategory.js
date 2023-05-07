@@ -1,18 +1,15 @@
 import React, { useState } from "react";
 import CategoryService from "../../Services/category.service";
-import authHeader from "../../Services/auth-header";
 function AddCategoryForm() {
   const [category, setCategory] = useState({
     description: "",
     name: "",
-
   });
 
   const handleSubmit = async event => {
     event.preventDefault();
-    const response = CategoryService.addCategory(category);
-    const data = await response.json();
-    console.log(data);
+    const response = CategoryService.addCategory(category.description,category.name)
+    .then();
     setCategory({
       description: "",
       name: "",
