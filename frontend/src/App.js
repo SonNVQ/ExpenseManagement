@@ -38,6 +38,9 @@ import Navbar from "./Components/Utils/Navbar";
 import CategoryForm from "./Components/Category/UpdateCategory";
 import AddCategoryForm from "./Components/Category/AddCategory";
 import CategoryPage from "./Components/Category/CategoryPage";
+import CreateRecordPage from "./Components/Record/CreateRecordPage";
+import ListRecordPage from "./Components/Record/ListRecordPage";
+import UpdateRecordPage from "./Components/Record/UpdateRecord";
 const App = () => {
 
 
@@ -56,6 +59,9 @@ const App = () => {
           <Route path="/addcategory" element={<AddCategoryForm/>} />
           <Route path="/updatecategory" element={<CategoryForm/>} />
           <Route path="/categoryPage" element={<CategoryPage/>} />
+          <Route path="/add-expense" element={<CreateRecordPage/>} />
+          <Route path="/update-expense" element={<UpdateRecordPage/>} />
+          <Route path="/list-expense" element={<ListRecordPage/>} />
         </Routes>
       </div>
       </>
