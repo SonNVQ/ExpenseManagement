@@ -1,3 +1,4 @@
+
 import React, {useState, useEffect} from "react";
 import CategoryService from "../../Services/category.service";
 
@@ -46,6 +47,7 @@ const CategoryTable = () => {
             </div>
         </>
     );
+
 }
 
 export default CategoryTable;

@@ -11,11 +11,15 @@ function UpdateCategory() {
 
   const handleSubmit = async event => {
     event.preventDefault();
+    const userLocalStorage = localStorage.getItem('user');
+    const token = JSON.parse(userLocalStorage).token;
     const response = await fetch("http://localhost:8090/api/categories", {
-      method: "PUT",
+      method: "POST",
       headers: {
-        headers: authHeader() 
+        'Authorization': `Bearer ${token}`,
+        'Content-type': 'application/json'
       },
+      mode: 'cors',
       body: JSON.stringify(category)
     });
     const data = await response.json();
@@ -51,12 +55,7 @@ function UpdateCategory() {
       <label>
         Description:   </label>
         <input type="text" name="description" value={category.description} onChange={handleChange}   placeholder="e.g., Go to meet my friends and enjoy the day." required/>
-      </div>  
-      <div  className="grid-xs">
-      <label>
-        User ID:    </label>
-        <input type="text" name="user_id" value={category.user_id} onChange={handleChange} />
-        </div>    
+      </div>   
       <button className="btn btn--dark mt-2" type="submit">Add Category</button>
     </form>
   </div>

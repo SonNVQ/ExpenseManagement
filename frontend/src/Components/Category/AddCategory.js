@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import CategoryService from "../../Services/category.service";
 import authHeader from "../../Services/auth-header";
+
 import {queries} from "@testing-library/react";
 import {API_SERVICE} from "../../Services/base-service";
+
 
 function AddCategoryForm() {
   const [category, setCategory] = useState({
@@ -12,6 +14,7 @@ function AddCategoryForm() {
 
   const handleSubmit = async event => {
     event.preventDefault();
+
     console.log(event);
 
     const userLocalStorage = localStorage.getItem('user');
@@ -29,6 +32,7 @@ function AddCategoryForm() {
     const response = await API_SERVICE.Categories.create(category);
     console.log(response);
 
+
     const data = await response.json();
     console.log(data);
     setCategory({
@@ -36,6 +40,9 @@ function AddCategoryForm() {
       name: "",
 
     });
+      await CategoryService.addCategory(category.name, category.description);
+      console.log("Category created successfully");
+      window.location.replace = 'http://localhost:3000/category';
   };
 
   const handleChange = event => {
@@ -63,7 +70,6 @@ function AddCategoryForm() {
         Description:   </label>
         <input type="text" name="description" value={category.description} onChange={handleChange}   placeholder="e.g., Go to meet my friends and enjoy the day." required/>
       </div>  
-    
       <button className="btn btn--dark mt-2" type="submit">Add Category</button>
     </form>
   </div>
