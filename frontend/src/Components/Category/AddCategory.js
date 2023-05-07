@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import CategoryService from "../../Services/category.service";
 import authHeader from "../../Services/auth-header";
+import { redirect } from "react-router-dom";
 function AddCategoryForm() {
   const [category, setCategory] = useState({
     description: "",
     name: "",
-
   });
 
   const handleSubmit = async event => {
@@ -30,6 +30,9 @@ function AddCategoryForm() {
       name: "",
 
     });
+      await CategoryService.addCategory(category.name, category.description);
+      console.log("Category created successfully");
+      window.location.replace = 'http://localhost:3000/category';
   };
 
   const handleChange = event => {
@@ -57,7 +60,6 @@ function AddCategoryForm() {
         Description:   </label>
         <input type="text" name="description" value={category.description} onChange={handleChange}   placeholder="e.g., Go to meet my friends and enjoy the day." required/>
       </div>  
-    
       <button className="btn btn--dark mt-2" type="submit">Add Category</button>
     </form>
   </div>
